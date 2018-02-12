@@ -23,12 +23,10 @@ io.attach(server);
 // plug in socket.io
 io.on('connection', function(socket) {
 	console.log('a user has connected');
-	io.emit('chat message', { for: 'everyone', message: `${socket.id} is here to par TAY!!` });
-
+	io.emit('chat message', { for: 'everyone', message: `<p style="color: green;">${socket.id} is here to par TAY!!</p>` });
 	// listen for a message, and then send it where it needs to go
 	socket.on('chat message', function(msg) {
 		console.log('message: ', msg);
-
 		// send a message event to all clients
 		io.emit('chat message', { for: 'everyone', message: msg });
 	});
@@ -36,7 +34,7 @@ io.on('connection', function(socket) {
 	// listen for disconnet
 	socket.on('disconnect', function() {
 		console.log('a user disconnected');
-		msg = `${socket.id} has left the building!`;
+		msg = `<p style="color: red;">${socket.id} has left the building!</p>`;
 		io.emit('disconnect message', msg);
 	});
 });
